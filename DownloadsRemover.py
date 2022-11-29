@@ -27,18 +27,22 @@ def changes():
     return temp
 
 
-def delete(num, to_spare):
-    while True:
+def delete(num, to_spare, decision, move):
+    message = True
+    while move:
         if num == 0:
-            print("There is no files to be removed.")
-            break
+            if message:
+                print("There is no files to be removed.")
+            move = False
         else:
+            message = False
             for filename in files:
                 if filename not in to_spare:
                     file = '/home/jakub/Downloads/' + filename
-                    print(file)
-                    # os.remove(file)
+                    os.remove(file)
                 num -= 1
+
+            print("removed.")
 
     print(files)
 
@@ -46,9 +50,13 @@ def delete(num, to_spare):
 def main():
     num_of_files = counter(directory)
     decision = ask()
+    while decision != "y" and decision != "n":
+        decision = input("y/n")
     if decision == "n":
         files_to_spare = changes()
-        delete(counter(directory), files_to_spare)
+        delete(num_of_files, files_to_spare, decision, move=True)
+    else:
+        delete(num_of_files, None, decision, move=True)
 
 
 main()
