@@ -20,8 +20,9 @@ def ask():
     decision = input("Do you want to remove all the given files? (y/n):\n")
 
     if decision == "n":
-        files_to_spare.append(input("Write the exact name of the file to be spared, "
-                                    "otherwise it'll be deleted permanently: "))
+        temp = [item for item in input("Write the exact names (with blank spaces as separators)"
+                                       " of the files to be spared, "
+                                       "otherwise they'll be deleted permanently: ").split()]
 
 
 move = True
@@ -30,8 +31,8 @@ num_of_files = counter(directory)
 
 while move:
     ask()
-    if num_of_files == 0: 
-        print("There is no files.")
+    if num_of_files == 0:
+        print("There is no files to be removed.")
         move = False
     else:
         for filename in files:
